@@ -1,0 +1,117 @@
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Sticky Note</title>
+    <link type="text/css" rel="stylesheet" href="styles/style.css"/>
+    <script type="text/javascript" src="javaScript/jQuery/jquery-1.12.1.js"></script>
+    <script type="text/javascript" src="javaScript/jQuery/jquery-ui.1.12.1.js"></script>
+    <script type="text/javascript">
+
+        var notes;
+        var counter = 0;
+
+        function add() {
+            return counter += 1;
+        }
+
+        function subtract() {
+            return counter -= 1;
+        }
+
+        function reset() {
+            return counter = 0;
+        }
+
+        function functionAdd() {
+            document.getElementById("demo").innerHTML = add();
+        }
+
+        function functionsSubtract() {
+            document.getElementById("demo").innerHTML = subtract();
+        }
+
+        function functionsReset() {
+            document.getElementById("demo").innerHTML = reset();
+        }
+
+        $(document).ready(function () {
+            var count = 0;
+
+            $("#btnNew").click(function () {
+                functionAdd();
+
+                    var newNote;
+                    newNote = $("<li><div id='element"+ count +"' ><img class='position' src='styles/images/close.png'/>"+
+                            "<textarea class='note-title' placeholder='Untitled' maxlength='10'/>" +
+                            "<textarea class='note-content' placeholder='Your content here'/>" +
+                            "</div></li>");
+
+                    $("#notes").append(newNote);
+
+                    newNote.find("img").click(function () {
+                        functionsSubtract();
+                        count--;
+                        newNote.remove();
+                    });
+
+                    $(function() {
+                        $( "#element"+ count).draggable();
+                    });
+                    count++;
+            });
+
+            $("#btnDelete").click(function () {
+                functionsReset();
+                $("#notes").empty();
+            });
+        });
+
+        $(function() {
+            $( "#test" ).draggable();
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div>
+    <div class="main-box">
+        <div class="toolbar">
+
+            <img class="stickLogo" src="styles/images/stickLogo.png"/>
+
+            <div class="appName">
+                <h1>Stickies app</h1>
+            </div>
+            <div class="noteLogo">
+                <img src="styles/images/noteLogo.png"/>
+            </div>
+            <div class="button-AddNode">
+
+                <div id="controls">
+                    <button id="btnNew" class="button"><span>Add note</span></button>
+                    <button id="btnDelete" class="deleteButton"><span>Delete All notes</span></button>
+                    <p id="demo" class="counter">
+                       0
+                    </p>
+                </div>
+
+            </div>
+            <div class="colorSwitch">
+                <button class="colors" style="vertical-align:middle"><span>Color ▼</span></button>
+                <div class="dropdown-content">
+                    <a href="#" class="blue">Blue</a>
+                    <a href="#" class="orange">Orange</a>
+                    <a href="#" class="green">Green</a>
+                </div>
+            </div>
+        </div>
+
+        <ul id="notes">
+        </ul>
+    </div>
+</div>
+</body>
+</html>
